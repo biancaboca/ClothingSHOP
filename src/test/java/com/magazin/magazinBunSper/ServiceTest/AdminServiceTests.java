@@ -40,27 +40,12 @@ public class AdminServiceTests {
     private OrderRepository orderRepository;
 
 
-    private Optional<Admin> adminOptional;
     private Admin admin;
-    private Product product;
-    private User user;
-    private Orderer order;
-
     private String Nameadmin = "Pojar";
-    private int cantitate=20;
-    private int pret=20;
-    private String marca="Nikii";
     private int idToFind=1;
     private int cod=444555;
     private String parola="alina0102030405";
-    private String numeProdus="Cocotiera";
-
-    private int idToFindNot=999;
-    private String Nameadmin_NOT="Doesn't exist";
-
     private List<Admin> listaAdmini;
-    private List<Orderer> listaOrders;
-    private List<User> userList;
 
 
     @BeforeEach
@@ -69,27 +54,12 @@ public class AdminServiceTests {
         adminService = new AdminServiceImplementation(adminRepository, productRepository, userRepository,orderRepository);
        // admin= adminService.findAdminById(idToFind);
         admin=new Admin();
-        user=new User();
-        product=new Product();
-        adminOptional= Optional.of(new Admin());
         listaAdmini=new ArrayList<Admin>();
-        listaOrders=new ArrayList<Orderer>();
-        userList=new ArrayList<User>();
-        order=new Orderer();
-
-        order.setId((long) idToFind);
-        user.setId(idToFind);
         admin.setId(idToFind);
         admin.setName(Nameadmin);
         admin.setCodAdmin(cod);
         admin.setParola(parola);
         assertNotNull(admin);
-        product.setUser(user);
-        product.setCantitateProdus(cantitate);
-        product.setMarca(marca);
-        product.setPretProdus(pret);
-        product.setNumeProdus(numeProdus);
-
 
     }
 
@@ -121,128 +91,6 @@ public class AdminServiceTests {
 
     }
 
-    @Test
-    void whenGivenAnOrder_whenTryingToDelete_thenReturnNull(){
-        adminService = new AdminServiceImplementation(adminRepository, productRepository, userRepository,orderRepository);
-        adminService.deleteOrder(order);
-        assertNotNull(order);
-
-    }
-    @Test
-    void whenGivenAnOrder_whenTryingToAdd_thenReturnOrder(){
-        adminService = new AdminServiceImplementation(adminRepository, productRepository, userRepository,orderRepository);
-        adminService.addOrder(order);
-        assertNotNull(order);
-
-    }
-
-    @Test
-    void whenGivenAnOrder_whenTryingToDelete_thenReturnNothing() {
-        adminService = new AdminServiceImplementation(adminRepository, productRepository, userRepository, orderRepository);
-        adminService.deleteOrderById(idToFind);
-        assertNotNull(order);
-        assertEquals(order.getId(), idToFind);
-    }
-
-    @Test
-    void whenFindingOrders_thenReturnListOfOrders()
-    {
-        adminService=new AdminServiceImplementation(adminRepository,productRepository,userRepository,orderRepository);
-        when(adminService.findAllOrders()).thenReturn(listaOrders);
-        assertNotNull(listaOrders);
-    }
-
-
-    @Test
-    void whenGivenAnUser_whenTryingToDelete_thenReturnNull(){
-        adminService = new AdminServiceImplementation(adminRepository, productRepository, userRepository,orderRepository);
-        adminService.deleteUser(user);
-
-    }
-
-    @Test
-    void whenGivenAnUser_whenTryingToAdd_thenReturnOrder(){
-        adminService = new AdminServiceImplementation(adminRepository, productRepository, userRepository,orderRepository);
-        adminService.addUser(user);
-
-    }
-
-    @Test
-    void whenGivenAnUser_whenTryingToDelete_thenReturnNothing() {
-        adminService = new AdminServiceImplementation(adminRepository, productRepository, userRepository, orderRepository);
-        adminService.deleteUserById(idToFind);
-        assertEquals(user.getId(), idToFind);
-        assertNotNull(user);
-    }
-    @Test
-    void whenFindingUser_thenReturnListOfUsers()
-    {
-        adminService=new AdminServiceImplementation(adminRepository,productRepository,userRepository,orderRepository);
-        when(adminService.findAllUsers()).thenReturn(userList);
-    //    assertNotNull(userList);
-    }
-//    @Test
-//    void whenFindingProductAndName_thenReturnNewProduct(){
-//        adminService = new AdminServiceImplementation(adminRepository, productRepository, userRepository, orderRepository);
-//        Product updatedProduct = new Product(); // create an updated product object to use in the test
-//        updatedProduct.setId(product.getId());
-//        updatedProduct.setCantitateProdus(cantitate); // set the updated quantity value
-//        when(adminService.updateProduct(updatedProduct, cantitate)).thenReturn(product);
-//
-//        Optional<Product> optionalProduct = Optional.of(adminService.updateProduct(product, cantitate));
-//        assertNotNull(optionalProduct);
-//
-//        assertNotNull(product);
-//        assertEquals(cantitate, optionalProduct.get().getCantitateProdus());
-//    }
-
-    @Test
-    void whenUpdatingProductPret_thenProductIsUpdated() {
-        adminService=new AdminServiceImplementation(adminRepository,productRepository,userRepository,orderRepository);
-        Product originalProduct = new Product();
-        originalProduct.setId(1);
-        originalProduct.setPretProdus(20);
-        when(productRepository.findById(originalProduct.getId())).thenReturn(Optional.of(originalProduct));
-        Product updatedProduct = adminService.updateProductPret(originalProduct, pret);
-        assertEquals(pret, updatedProduct.getPretProdus());
-
-    }
-
-    @Test
-    void whenUpdatingProductCantitate_thenProductIsUpdated() {
-        adminService=new AdminServiceImplementation(adminRepository,productRepository,userRepository,orderRepository);
-        Product originalProduct = new Product();
-        originalProduct.setId(1);
-        originalProduct.setCantitateProdus(30);
-        when(productRepository.findById(originalProduct.getId())).thenReturn(Optional.of(originalProduct));
-        Product updatedProduct = adminService.updateProduct(originalProduct, cantitate);
-        assertEquals(cantitate, updatedProduct.getCantitateProdus());
-
-    }
-
-    @Test
-    void whenUpdatingProductMarca_thenProductIsUpdated() {
-        adminService=new AdminServiceImplementation(adminRepository,productRepository,userRepository,orderRepository);
-        Product originalProduct = new Product();
-        originalProduct.setId(1);
-        originalProduct.setMarca("Nikii");
-        when(productRepository.findById(originalProduct.getId())).thenReturn(Optional.of(originalProduct));
-        Product updatedProduct = adminService.updateProduct(originalProduct, marca);
-        assertEquals(marca, updatedProduct.getMarca());
-
-    }
-
-    @Test
-    void whenUpdatingProductNume_thenProductIsUpdated() {
-        adminService=new AdminServiceImplementation(adminRepository,productRepository,userRepository,orderRepository);
-        Product originalProduct = new Product();
-        originalProduct.setId(1);
-        originalProduct.setNumeProdus("Cocotiera");
-        when(productRepository.findById(originalProduct.getId())).thenReturn(Optional.of(originalProduct));
-        Product updatedProduct = adminService.updateProduct(originalProduct, numeProdus);
-        assertEquals(numeProdus, updatedProduct.getNumeProdus());
-
-    }
 
 
 

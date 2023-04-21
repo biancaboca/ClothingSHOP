@@ -84,15 +84,28 @@ public class UserServiceTests {
         userService = new UserServiceImplementation(userRepository);
         userService.deleteUserById(idToFind);
     }
+    @Test
+    void whenGivenAnUser_whenTryingToDelete_thenReturnNull(){
+        userService = new UserServiceImplementation(userRepository);
+        userService.deleteUser(user);
 
-//    @Test
-//    void givingName_whenTryingToFind_thenReturnUseer()
-//    {
-//        userService=new UserServiceImplementation(userRepository);
-//        when(userService.fetchAUserByName(NameUser)).thenReturn(user);
-//        user=userService.fetchAUserByName(NameUser);
-//        assertNotNull(user);
-//    }
+    }
+
+    @Test
+    void whenGivenAnUser_whenTryingToAdd_thenReturnOrder(){
+        userService = new UserServiceImplementation(userRepository);
+        userService.addUser(user);
+
+    }
+
+    @Test
+    void whenGivenAnUser_whenTryingToDelete_thenReturnNothing() {
+        userService = new UserServiceImplementation(userRepository);
+        userService.deleteUserById(idToFind);
+        assertEquals(user.getId(), idToFind);
+        assertNotNull(user);
+    }
+
 
     @Test
     void whenUpdatingClientNume_thenProductIsUpdated() {

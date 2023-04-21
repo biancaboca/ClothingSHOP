@@ -24,14 +24,6 @@ public class UserServiceImplementation implements UserService {
         this.userRepository = userRepository;
     }
 
-
-    //pentru User
-//    @Override
-//    public List<User> findAllUsers()
-//    {
-//        return (List<User>) userRepository.findAll();
-//    }
-
     @Override
     public void deleteUser(Integer id)
     {

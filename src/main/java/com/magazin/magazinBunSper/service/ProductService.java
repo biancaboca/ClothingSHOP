@@ -10,12 +10,16 @@ import java.util.Optional;
 
 @Component
 public interface ProductService {
-//
-//    List<Product> findAllProducts();
-//    Optional<Product> findProductById(Integer id);
-//    Product addProduct(Product Product1);
-//    void deleteProduct(Product Product1);
-//    void deleteProductById(Integer id);
-//
-//    Product updateProduct(Product masina);
+
+
+    List<Product> findAllProducts();
+    Optional<Product> findProductById(Integer id);
+    Product addProduct(Product Product1);
+    void deleteProduct(Product Product1);
+    void deleteProductById(Integer id);
+    Product updateProduct(Product product);
+    Product updateProduct(Product product, String marca);
+    Product updateProductByName(Product product, String numeProdus);
+    Product updateProduct(Product product, int cantitate);
+    Product updateProductPret(Product product, int pret);
 }

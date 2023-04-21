@@ -13,7 +13,6 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-
     private String numeClient;
     private String adresaEmail;
     private String prenumeClient;

@@ -1,10 +1,13 @@
 package com.magazin.magazinBunSper;
 
+import com.magazin.magazinBunSper.controller.AdminController;
+import com.magazin.magazinBunSper.controller.UserController;
 import com.magazin.magazinBunSper.model.*;
 import com.magazin.magazinBunSper.repository.AdminRepository;
 import com.magazin.magazinBunSper.repository.OrderRepository;
 import com.magazin.magazinBunSper.repository.ProductRepository;
 import com.magazin.magazinBunSper.repository.UserRepository;
+import com.magazin.magazinBunSper.service.AdminService;
 import com.magazin.magazinBunSper.service.serviceImplementation.AdminServiceImplementation;
 import com.magazin.magazinBunSper.service.serviceImplementation.UserServiceImplementation;
 import org.springframework.boot.CommandLineRunner;
@@ -13,6 +16,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -25,6 +30,7 @@ import java.util.List;
 @EnableJpaRepositories
 //@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 @ComponentScan({"com.magazin.magazinBunSper.repository"})
+@RestController
 public class MagazinBunSperApplication {
 
 
@@ -34,7 +40,7 @@ public class MagazinBunSperApplication {
 	}
 
 	@Bean
-		CommandLineRunner init (UserRepository userRepository, ProductRepository productRepository, OrderRepository orderRepository,AdminRepository adminRepository){
+		CommandLineRunner init (UserRepository userRepository, ProductRepository productRepository, OrderRepository orderRepository, AdminRepository adminRepository){
 		return args -> {
 
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -157,60 +163,21 @@ public class MagazinBunSperApplication {
 			produse3.add(produs4);
 			productRepository.saveAll(produse3);
 			order2.setComanda(produse3);
-		//	order2.setComanda(produse3);
-
-
-
-//			orderList.add(order);
-//			orderList2.add(order1);
-//			orderList3.add(order2);
-
-
-			System.out.println(orderList);
-			System.out.println(orderList2);System.out.println(orderList3);
-
-
-
 			produs1.setUser(user1);
 			productRepository.save(produs1);
-
-//			produs1.setOrdering(order);
-//			produs1.setOrdering(order1);
-//			produs1.setOrdering(order2);
-//
-//			productRepository.save(produs1);
-//
-//			produs2.setOrdering(order);
-//			produs2.setOrdering(order1);
-//			produs2.setOrdering(order2);
-//			productRepository.save(produs2);
-//
-//			produs3.setOrdering(order1);
-//			produs3.setOrdering(order2);
-//			productRepository.save(produs3);
-//
-//			produs4.setOrdering(order2);
-//			productRepository.save(produs4);
-//			user1.setListaOrders(orderList);
-//			userRepository.save(user1);
-
 			produs2.setUser(user2);
 			productRepository.save(produs2);
-
-
-
-		//	System.out.println(orderList);
-	//		System.out.println(order);
 			AdminServiceImplementation adminServiceImplementation=new AdminServiceImplementation(adminRepository, productRepository, userRepository, orderRepository);
-		//	System.out.println(adminServiceImplementation.logIn(adminPrincipal,"alina0102030405", 444555  ));
 			UserServiceImplementation userService=new UserServiceImplementation(userRepository);
-			//System.out.println(userService.findById2((long)3));
-		//	System.out.println(userServiceImplementation.fetchAUserByName("Boca"));
-//			userRepository.deleteUserById(1);
-//			System.out.println(use);
 
-			adminServiceImplementation.updateProduct(produs1,"KIWI");
-			System.out.println(userService.logInClient(user1,"bianca", "bianca_boca25@yahoo.com"));
+			//System.out.println(userService.logInClient(user1,"bianca", "bianca_boca25@yahoo.com"));
+
+
+			AdminController adminController=new AdminController(adminServiceImplementation);
+
+			UserController userController=new UserController(userService);
+
+
 
 		};
 

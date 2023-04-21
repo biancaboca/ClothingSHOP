@@ -19,6 +19,17 @@ public class Product {
     private int pretProdus;
     private String marca;
 
+
+
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private User user;
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Orderer ordering;
+
+
+
     @Override
     public String toString() {
         return "Product{" +
@@ -29,13 +40,4 @@ public class Product {
                 ", marca='" + marca + '\'' +
                 '}'+"\n";
     }
-
-
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private User user;
-
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Orderer ordering;
-
-
 }

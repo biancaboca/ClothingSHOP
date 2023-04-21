@@ -13,14 +13,9 @@ import java.util.Optional;
 @Component
 public interface OrdererService {
 
-
     List<Orderer> findAllOrders();
-
     Orderer addOrder(Orderer order1);
-
     void deleteOrder(Orderer order1);
-
     void deleteOrderById(Integer id);
-
     Optional<Orderer> findOrderById(Long id);
 }
